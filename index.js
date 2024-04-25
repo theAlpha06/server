@@ -38,7 +38,7 @@ app.use(
 // app.set('trust proxy', true);
 app.use(
   cors({
-    origin:"http://localhost:3000",
+    origin:["http://localhost:3000", "https://client-1-d1p0.onrender.com"],
     credentials: true,
   })
 );
