@@ -18,12 +18,11 @@ const PORT = process.env.PORT || 4000;
 
 dbConnect();
 
-app.use(
-  cors({
-    origin:"http://localhost:3000/",
-    credentials: true,
-  })
-);
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'test',
@@ -35,10 +34,15 @@ app.use(
     }
   })
 );
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+
+app.set('trust proxy', true);
+app.use(
+  cors({
+    origin:"http://localhost:3000/",
+    credentials: true,
+  })
+);
+
 
 app.use(
   fileUpload({
